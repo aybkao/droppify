@@ -8,7 +8,6 @@
     "start": "nodemon server/index.js",
     "react-dev": "webpack -d --watch",
     "mongo-dev": "mongod --dbpath database-mongo/db"
-
   },
   "repository": {
     "type": "git",
