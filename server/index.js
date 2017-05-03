@@ -1,11 +1,13 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-// var items = require('../database-mongo');
-var pdf_table_extractor = require("pdf-table-extractor"); //<-- FF
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
+// const items = require('../database-mongo');
+const pdf_table_extractor = require("pdf-table-extractor"); //<-- FF
 
-var app = express();
+const app = express();
+app.use(bodyParser.json());
 
-app.use(express.static(__dirname + '/../react-client/dist'));
+app.use(express.static(path.join(__dirname + '/../react-client/dist')));
 
 app.get('/items', function (req, res) {
   items.selectAll(function(err, data) {
@@ -20,9 +22,9 @@ app.get('/items', function (req, res) {
 
 app.get('/JTMBAK', function(req, res) {
   function success(result) {
-    Result = JSON.parse( JSON.stringify(result) );
+    Result = JSON.parse(JSON.stringify(result));
     // console.log(  Result["pageTables"][0].tables );
-	res.send( Result["pageTables"][0].tables );
+	res.send(Result["pageTables"][0].tables);
   }
   function error(err) {
     console.error('Error: ' + err);
@@ -30,10 +32,10 @@ app.get('/JTMBAK', function(req, res) {
   pdf_table_extractor("cat1_live.pdf",success,error);
 });
 
+const port = process.env.PORT || 5000;
 
-
-app.listen(3000, function() {
-  console.log('listening on port 3000!');
+app.listen(port, function() {
+  console.log(`Example app listening on ${port}`);
 });
 
 // From Test-Server.js
