@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 
 app.get('/', (req, res) => {
-  res.send('JT WEARS BLACK SOCKS!!!');
+  res.send('I went around the blocks');
 });
 
 var port = process.env.PORT || 3000;
