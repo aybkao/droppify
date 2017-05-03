@@ -19,5 +19,8 @@
   "homepage": "https://github.com/FreedomFighters1/droppify#readme",
   "dependencies": {
     "express": "^4.15.2"
+  },
+  "engines": {
+    "node": ">=6.9.5"
   }
 }
