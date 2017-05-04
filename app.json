@@ -5,11 +5,11 @@
   "env": {
     "NPM_CONFIG_PRODUCTION": {
       "required": true
+    }
   },
   "formation": {
   },
   "addons": [
-
   ],
   "buildpacks": [
     {
@@ -17,10 +17,3 @@
     }
   ]
 }
-
-"env": {
-    "INHERIT_THIS_CONFIG_VAR": {
-      "required": true
-    },
-    "DONT_INHERIT_THIS_CONFIG_VAR": "production"
-  },
