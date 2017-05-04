@@ -7,7 +7,7 @@ const pdf_table_extractor = require("pdf-table-extractor"); //<-- FF
 const app = express();
 app.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname + '/../react-client/dist')));
+app.use(express.static(path.join(__dirname + '/../public')));
 
 app.get('/items', function (req, res) {
   items.selectAll(function(err, data) {
