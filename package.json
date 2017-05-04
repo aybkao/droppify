@@ -49,7 +49,6 @@
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.24.1",
     "nodemon": "^1.11.0",
-    "npm": "^4.5.0",
     "webpack": "^2.4.1"
   }
 }
