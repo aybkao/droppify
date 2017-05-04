@@ -8,32 +8,28 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/../public')));
 
-// app.get('/', (req, res) => {
-//   res.send('hello world');
-// });
-
-// app.get('/items', function (req, res) {
-//   items.selectAll(function(err, data) {
-//     if(err) {
-//       res.sendStatus(500);
-//     } else {
-//       res.json(data);
-//     }
-//   });
-// });
+app.get('/items', function (req, res) {
+  items.selectAll(function(err, data) {
+    if(err) {
+      res.sendStatus(500);
+    } else {
+      res.json(data);
+    }
+  });
+});
 
 
-// app.get('/JTMBAK', function(req, res) {
-//   function success(result) {
-//     Result = JSON.parse(JSON.stringify(result));
-//     // console.log(  Result["pageTables"][0].tables );
-// 	res.send(Result["pageTables"][0].tables);
-//   }
-//   function error(err) {
-//     console.error('Error: ' + err);
-//   }
-//   pdf_table_extractor("cat1_live.pdf",success,error);
-// });
+app.get('/JTMBAK', function(req, res) {
+  function success(result) {
+    Result = JSON.parse(JSON.stringify(result));
+    // console.log(  Result["pageTables"][0].tables );
+	res.send(Result["pageTables"][0].tables);
+  }
+  function error(err) {
+    console.error('Error: ' + err);
+  }
+  pdf_table_extractor("cat1_live.pdf",success,error);
+});
 
 const port = process.env.PORT || 5000;
 
