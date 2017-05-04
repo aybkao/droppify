@@ -10,7 +10,7 @@
     "react-dev": "webpack -d --watch",
     "mongo-dev": "mongod --dbpath database-mongo/db",
     "build": "NODE_ENV=production webpack -p --progress --colors",
-    "postinstall": "npm run build"
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
