@@ -19,17 +19,17 @@ app.get('/items', function (req, res) {
 });
 
 
-app.get('/JTMBAK', function(req, res) {
-  function success(result) {
-    Result = JSON.parse(JSON.stringify(result));
-    // console.log(  Result["pageTables"][0].tables );
-	res.send(Result["pageTables"][0].tables);
-  }
-  function error(err) {
-    console.error('Error: ' + err);
-  }
-  pdf_table_extractor("cat1_live.pdf",success,error);
-});
+// app.get('/JTMBAK', function(req, res) {
+//   function success(result) {
+//     Result = JSON.parse(JSON.stringify(result));
+//     // console.log(  Result["pageTables"][0].tables );
+// 	res.send(Result["pageTables"][0].tables);
+//   }
+//   function error(err) {
+//     console.error('Error: ' + err);
+//   }
+//   pdf_table_extractor("../PDF/cat1_live.pdf",success,error);
+// });
 
 const port = process.env.PORT || 5000;
 
