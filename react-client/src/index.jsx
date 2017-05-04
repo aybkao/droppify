@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import List from './components/List.jsx';
-import Nav from './components/Nav.jsx';  //<-- Created by JT to connect to Nav template
+import Nav from './components/Nav.jsx';  //<-- Created by JT to connect to Nav template 
 import ImportBar from './components/ImportBar.jsx'; //<-- Created by JT to connect to ImportBar template
 // ImportBar may be inside Nav. Let's decide. Or someone make an executive decision
 import SearchBar from './components/SearchBar.jsx'; //<-- Created by JT to connect to SearchBar template
 import TableView from './components/TableView.jsx'; //<-- Created by JT to connect to TableView template
 import PageNumber from './components/PageNumber.jsx'; //<-- Created by JT to connect to TableView template
-import ExampleTableData from './ExampleTableData.js'; //<-- Dummy data
+import ExampleTableData from '../../ExampleTableData.js'; //<-- Dummy data
 
 class App extends React.Component {
   constructor(props) {
@@ -20,18 +20,18 @@ class App extends React.Component {
 
   componentDidMount() {
     console.log(ExampleTableData)
-    // $.ajax({
-    //   method: "GET",
-    //   url: '/JTMBAK', 
-    //   success: (data) => {
-    //     this.setState({
-    //       items: data
-    //     })
-    //   },
-    //   error: (err) => {
-    //     console.log('componentDidMount err', err);
-    //   }
-    // });
+    $.ajax({
+      method: "GET",
+      url: '/JTMBAK', 
+      success: (data) => {
+        this.setState({
+          items: data
+        })
+      },
+      error: (err) => {
+        console.log('componentDidMount err', err);
+      }
+    });
 
   }
 

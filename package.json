@@ -8,7 +8,9 @@
     "start": "node ./server/index.js",
     "start-dev": "nodemon ./server/index.js",
     "react-dev": "webpack -d --watch",
-    "mongo-dev": "mongod --dbpath database-mongo/db"
+    "mongo-dev": "mongod --dbpath database-mongo/db",
+    "build": "webpack -p --progress --colors",
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -22,9 +24,9 @@
   "homepage": "https://github.com/FreedomFighters1/droppify#readme",
   "dependencies": {
     "axios": "^0.16.1",
-    "babel": "^6.23.0",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
+    "jquery": "^3.2.1",
     "mongo": "^0.1.0",
     "mongoose": "^4.9.7",
     "pdf-table-extractor": "^1.0.3",
@@ -34,7 +36,8 @@
     "react-dom": "^15.5.4",
     "reactstrap": "^4.5.0",
     "request": "^2.81.0",
-    "request-promise": "^4.2.0"
+    "request-promise": "^4.2.0",
+    "webpack": "^2.4.1"
   },
   "engines": {
     "node": ">=6.9.5"
@@ -47,9 +50,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.24.1",
-    "install": "^0.9.6",
     "nodemon": "^1.11.0",
-    "npm": "^4.5.0",
     "webpack": "^2.4.1"
   }
 }

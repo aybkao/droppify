@@ -6,8 +6,7 @@ const pdf_table_extractor = require("pdf-table-extractor"); //<-- FF
 
 const app = express();
 app.use(bodyParser.json());
-
-app.use(express.static(path.join(__dirname + '/../react-client/dist')));
+app.use(express.static(path.join(__dirname, '/../public')));
 
 app.get('/items', function (req, res) {
   items.selectAll(function(err, data) {
@@ -20,17 +19,17 @@ app.get('/items', function (req, res) {
 });
 
 
-app.get('/JTMBAK', function(req, res) {
-  function success(result) {
-    Result = JSON.parse(JSON.stringify(result));
-    // console.log(  Result["pageTables"][0].tables );
-	res.send(Result["pageTables"][0].tables);
-  }
-  function error(err) {
-    console.error('Error: ' + err);
-  }
-  pdf_table_extractor("cat1_live.pdf",success,error);
-});
+// app.get('/JTMBAK', function(req, res) {
+//   function success(result) {
+//     Result = JSON.parse(JSON.stringify(result));
+//     // console.log(  Result["pageTables"][0].tables );
+// 	res.send(Result["pageTables"][0].tables);
+//   }
+//   function error(err) {
+//     console.error('Error: ' + err);
+//   }
+//   pdf_table_extractor("../PDF/cat1_live.pdf",success,error);
+// });
 
 const port = process.env.PORT || 5000;
 
@@ -61,3 +60,4 @@ app.listen(port, function() {
 // app.listen(port, function() {
 //   console.log(`Example app listening on ${port}`);
 // });
+
