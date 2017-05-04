@@ -9,7 +9,8 @@
     "start-dev": "nodemon ./server/index.js",
     "react-dev": "webpack -d --watch",
     "mongo-dev": "mongod --dbpath database-mongo/db",
-    "postinstall": "npm run react-dev"
+    "build": "webpack -p",
+    "postinstall": "npm run build"
 
   },
   "repository": {
