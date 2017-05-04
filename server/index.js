@@ -61,11 +61,3 @@ app.listen(port, function() {
 //   console.log(`Example app listening on ${port}`);
 // });
 
-let columns = [2,3,4,5,6];
-let schema = {};
-
-for (let val of columns) {  
-  schema[val] = typeof val 
-}
-
-console.log(schema);
