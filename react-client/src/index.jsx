@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import List from './components/List.jsx';
-import Nav from './components/Nav.jsx';  //<-- Created by JT to connect to Nav template
+import Nav from './components/Nav.jsx';  //<-- Created by JT to connect to Nav template 
 import ImportBar from './components/ImportBar.jsx'; //<-- Created by JT to connect to ImportBar template
 // ImportBar may be inside Nav. Let's decide. Or someone make an executive decision
 import SearchBar from './components/SearchBar.jsx'; //<-- Created by JT to connect to SearchBar template
