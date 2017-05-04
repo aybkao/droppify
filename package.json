@@ -9,7 +9,7 @@
     "start-dev": "nodemon ./server/index.js",
     "react-dev": "webpack -d --watch",
     "mongo-dev": "mongod --dbpath database-mongo/db",
-    "build": "webpack -p",
+    "build": "NODE_ENV=production webpack -p --config ./webpack.prod.config.js --progress",
     "postinstall": "npm run build"
   },
   "repository": {
