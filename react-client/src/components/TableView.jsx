@@ -21,6 +21,11 @@ class TableView extends React.Component {
     this.handleRowSelection = this.handleRowSelection.bind(this);
   };
   
+  // componentDidMount() {
+  //   var headers = this.state.data[0];
+  //   var rows = this.state.data.shift();
+  // }
+
   isSelected (index) {
     return this.state.selected.indexOf(index) !== -1;
   };
@@ -34,13 +39,13 @@ class TableView extends React.Component {
       <Table onRowSelection={this.handleRowSelection}>
         <TableHeader>
           <TableRow>
-          {this.state.data.shift().map( (item)=> (
+          {this.state.data[0].map( (item)=> ( 
               <TableHeaderColumn>{item}</TableHeaderColumn>
             ) )}
           </TableRow>
         </TableHeader>
         <TableBody>
-          { this.state.data.map( (val, key1)=>(
+          { this.state.data.slice(1,this.state.data.length-1).map( (val, key1)=>(
             <TableRow selected={this.isSelected(key1)}>
             {val.map( (item, key2)=>(
               <TableRowColumn>{item}</TableRowColumn>
