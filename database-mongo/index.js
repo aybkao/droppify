@@ -53,4 +53,4 @@ function error(err) {
    console.error('Error: ' + err);
 }
  
-pdf_table_extractor("../PDF/finalExams.pdf",success,error);
+pdf_table_extractor("../PDF/cat1_live.pdf",success,error);
