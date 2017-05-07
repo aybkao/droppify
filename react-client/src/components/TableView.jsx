@@ -45,7 +45,7 @@ class TableView extends React.Component {
           </TableRow>
         </TableHeader>
         <TableBody>
-          { this.state.data.slice(1,this.state.data.length-1).map( (val, key1)=>(
+          { this.state.data.slice(1,this.state.data.length).map( (val, key1)=>(
             <TableRow selected={this.isSelected(key1)}>
             {val.map( (item, key2)=>(
               <TableRowColumn>{item}</TableRowColumn>
