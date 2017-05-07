@@ -1,44 +1,64 @@
 import React from 'react';
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn,
+} from 'material-ui/Table';
 
-// Created to implement Table view for the chart. Standard template created by JT. 
+
 // TO DO:
-const TableView = (props) => (
-  <table>
-	  <tr> TableView </tr>
-		<tc>	    
-		    { props.items.map((row)=>
-		    	<td>{row}</td>
-		    )}
-	  </tc>
-	  <tc>
-		    { props.items.map((val)=> 
-		    	<td>{val[1]}</td>
-		    )}
-    </tc>
-    <tc>
-		    { props.items.map((val)=> 
-		    	<td>{val[2]}</td>
-		    )}
-    </tc>
-    <tc>
-		    { props.items.map((val)=> 
-		    	<td>{val[3]}</td>
-		    )}
-    </tc>
-  </table>
-)
+class TableView extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { 
+      data: props.items,
+      selected: [1]
+    };
+    this.isSelected = this.isSelected.bind(this);
+    this.handleRowSelection = this.handleRowSelection.bind(this);
+  };
+  
+  // componentDidMount() {
+  //   var headers = this.state.data[0];
+  //   var rows = this.state.data.shift();
+  // }
+
+  isSelected (index) {
+    return this.state.selected.indexOf(index) !== -1;
+  };
+
+  handleRowSelection (selectedRows) {
+    this.setState({ selected: selectedRows });
+  };
+
+  render() {
+    return (
+      <Table onRowSelection={this.handleRowSelection}>
+        <TableHeader>
+          <TableRow>
+          {this.state.data[0].map( (item)=> ( 
+              <TableHeaderColumn>{item}</TableHeaderColumn>
+            ) )}
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          { this.state.data.slice(1,this.state.data.length).map( (val, key1)=>(
+            <TableRow selected={this.isSelected(key1)}>
+            {val.map( (item, key2)=>(
+              <TableRowColumn>{item}</TableRowColumn>
+            ) )}
+            </TableRow> 
+          ) )}
+        </TableBody>
+      </Table>
+    );
+  }
+}
 
 export default TableView;
 
-/* This renders a table but the x and y axis is reversed
-<tr>	    
-    { props.items.map((val)=>
-    	<td>{val[0]}</td>
-    )}
-</tr>
-<tr>
-    { props.items.map((val)=> 
-    	<td>{val[1]}</td>
-    )}
-</tr>
-*/
+
+
