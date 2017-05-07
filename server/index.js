@@ -9,15 +9,14 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/../public')));
 
 app.get('/items', function (req, res) {
-  items.selectAll(function(err, data) {
-    if(err) {
-      res.sendStatus(500);
-    } else {
-      res.json(data);
-    }
-  });
-});
+  res.send('items')
+})
 
+app.post('/data', function(req, res) {
+	// take req.body.filter to pull data from our database
+	console.log('app.post',req.body.filter)
+	res.send('yoiasf')
+})
 
 // app.get('/JTMBAK', function(req, res) {
 //   function success(result) {

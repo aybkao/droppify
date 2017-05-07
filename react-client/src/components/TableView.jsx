@@ -36,19 +36,19 @@ class TableView extends React.Component {
 
   render() {
     return (
-      <Table onRowSelection={this.handleRowSelection}>
-        <TableHeader>
-          <TableRow>
+      <Table onRowSelection={this.handleRowSelection} >
+        <TableHeader >
+          <TableRow >
           {this.state.data[0].map( (item)=> ( 
-              <TableHeaderColumn>{item}</TableHeaderColumn>
+              <TableHeaderColumn style={{ whiteSpace:false, wordWrap:'break-word'}}>{item}</TableHeaderColumn>
             ) )}
           </TableRow>
         </TableHeader>
-        <TableBody>
+        <TableBody >
           { this.state.data.slice(1,this.state.data.length).map( (val, key1)=>(
             <TableRow selected={this.isSelected(key1)}>
             {val.map( (item, key2)=>(
-              <TableRowColumn>{item}</TableRowColumn>
+              <TableRowColumn style={{ whiteSpace:false, wordWrap:'break-word'}}>{item}</TableRowColumn>
             ) )}
             </TableRow> 
           ) )}

@@ -19,8 +19,11 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      items: ExampleTableData
+      items: ExampleTableData,
+      filter: ''
     }
+    this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
 
@@ -40,6 +43,27 @@ class App extends React.Component {
     // });
   }
 
+  handleClick () {
+    console.log('click')
+    $.ajax({
+      method: 'POST',
+      url: 'http://localhost:5000/data',
+      data: JSON.stringify({filter:this.state.filter}),
+      contentType: 'application/json',
+      success: function(data) {
+        console.log('AJAX POST Success')
+      },
+      error: function() {
+        console.log('AJAX POST Fail')
+      }
+    })
+  }
+
+  handleChange(e) {
+    console.log('change', e.target.value)
+    this.setState({filter:e.target.value})
+  }
+
   render () {
     return (
       // <MuiThemeProvider>
@@ -48,10 +72,11 @@ class App extends React.Component {
         <Nav />
         <ImportBar />
         <List items={this.state.items}/>
-        <SearchBar />
-        <TableView items={this.state.items}/>
+          <input type='text' onChange={this.handleChange}/>
+          <input type='button' value='Filter Table' onClick={this.handleClick}/>
+        <TableView items={this.state.items} />
         <PageNumber />
-        
+
     </div>)
   }
 }
