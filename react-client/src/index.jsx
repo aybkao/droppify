@@ -5,7 +5,6 @@ import List from './components/List.jsx';
 import Nav from './components/Nav.jsx';  //<-- Created by JT to connect to Nav template 
 import ImportBar from './components/ImportBar.jsx'; //<-- Created by JT to connect to ImportBar template
 // ImportBar may be inside Nav. Let's decide. Or someone make an executive decision
-import SearchBar from './components/SearchBar.jsx'; //<-- Created by JT to connect to SearchBar template
 import TableView from './components/TableView.jsx'; //<-- Created by JT to connect to TableView template
 import PageNumber from './components/PageNumber.jsx'; //<-- Created by JT to connect to TableView template
 import ExampleTableData from '../../ExampleTableData.js'; //<-- Dummy data
@@ -19,31 +18,33 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      items: ExampleTableData,
-      filter: ''
+      items: [[]],
+      filter: '',
+      selected: [1]
     }
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.isSelected = this.isSelected.bind(this);
+    this.handleRowSelection = this.handleRowSelection.bind(this);
   }
 
 
   componentDidMount() {
-    // console.log(ExampleTableData)
-    // $.ajax({
-    //   method: "GET",
-    //   url: '/JTMBAK', 
-    //   success: (data) => {
-    //     this.setState({
-    //       items: data
-    //     })
-    //   },
-    //   error: (err) => {
-    //     console.log('componentDidMount err', err);
-    //   }
-    // });
+    var ogThis = this;
+    $.ajax({
+      method: "GET",
+      url: 'http://localhost:5000/TestDynamic',
+      success: (data) => {
+        ogThis.setState({ items: data })
+      },
+      error: (err) => {
+        console.log('componentDidMount err', err);
+      }
+    });
   }
 
   handleClick () {
+    var ogThis = this;
     console.log('click')
     $.ajax({
       method: 'POST',
@@ -52,7 +53,20 @@ class App extends React.Component {
       contentType: 'application/json',
       success: function(data) {
         console.log('AJAX POST Success')
+
+       $.ajax({
+          method: "GET",
+          url: 'http://localhost:5000/TestDynamic',
+          success: (data) => {
+            console.log('Nested Ajax request Success!')
+            ogThis.setState({ items: data })
+          },
+          error: (err) => {
+            console.log('Nested Ajax request failure', err);
+          }
+        });
       },
+
       error: function() {
         console.log('AJAX POST Fail')
       }
@@ -64,20 +78,26 @@ class App extends React.Component {
     this.setState({filter:e.target.value})
   }
 
+  isSelected (index) {
+    return this.state.selected.indexOf(index) !== -1;
+  };
+
+  handleRowSelection (selectedRows) {
+    this.setState({ selected: selectedRows });
+  };
+
   render () {
     return (
-      // <MuiThemeProvider>
-        <div>
+      <div>
         <h1>RENDERING DROPPIFY</h1>
         <Nav />
         <ImportBar />
-        <List items={this.state.items}/>
+        <List items={this.state.items} />
           <input type='text' onChange={this.handleChange}/>
           <input type='button' value='Filter Table' onClick={this.handleClick}/>
-        <TableView items={this.state.items} />
+        <TableView items={this.state.items} handleRowSelection={this.handleRowSelection} isSelected={this.isSelected}/>
         <PageNumber />
-
-    </div>)
+      </div>)
   }
 }
 
