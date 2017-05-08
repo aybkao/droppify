@@ -31,9 +31,10 @@ class App extends React.Component {
 
   componentDidMount() {
     var ogThis = this;
+    const port = process.env.PORT || 5000;
     $.ajax({
       method: "GET",
-      url: 'http://localhost:5000/TestDynamic',
+      url: 'http://localhost:'+port+'/TestDynamic',
       success: (data) => {
         ogThis.setState({ items: data })
       },
@@ -45,10 +46,11 @@ class App extends React.Component {
 
   handleClick () {
     var ogThis = this;
+    const port = process.env.PORT || 5000;
     console.log('click')
     $.ajax({
       method: 'POST',
-      url: 'http://localhost:5000/data',
+      url: 'http://localhost:'+port+'/data',
       data: JSON.stringify({filter:this.state.filter}),
       contentType: 'application/json',
       success: function(data) {
@@ -56,7 +58,7 @@ class App extends React.Component {
 
        $.ajax({
           method: "GET",
-          url: 'http://localhost:5000/TestDynamic',
+          url: 'http://localhost:'+port+'/TestDynamic',
           success: (data) => {
             console.log('Nested Ajax request Success!')
             ogThis.setState({ items: data })
