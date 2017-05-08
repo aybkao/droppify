@@ -1,11 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
+import config from '/../../../config.jsx';
 
-class Input extends Component {
+class Input extends React.Component {
   constructor(props) {
     super(props);
-    
   }
   
+  sendPdf = (file) => {
+    
+  } 
+
   render() {
     return (
       <div>
