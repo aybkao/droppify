@@ -20,7 +20,7 @@ class App extends React.Component {
     this.state = { 
       items: [[]],
       filter: '',
-      selected: [1]
+      selected: []
     }
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -31,10 +31,9 @@ class App extends React.Component {
 
   componentDidMount() {
     var ogThis = this;
-    const port = process.env.PORT || 5000;
     $.ajax({
       method: "GET",
-      url: 'http://localhost:'+port+'/TestDynamic',
+      url: '/TestDynamic',
       success: (data) => {
         ogThis.setState({ items: data })
       },
@@ -46,11 +45,10 @@ class App extends React.Component {
 
   handleClick () {
     var ogThis = this;
-    const port = process.env.PORT || 5000;
     console.log('click')
     $.ajax({
       method: 'POST',
-      url: 'http://localhost:'+port+'/data',
+      url: '/data',
       data: JSON.stringify({filter:this.state.filter}),
       contentType: 'application/json',
       success: function(data) {
