@@ -9,27 +9,36 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/../public')));
 
 app.get('/items', function (req, res) {
-  items.selectAll(function(err, data) {
-    if(err) {
-      res.sendStatus(500);
-    } else {
-      res.json(data);
-    }
-  });
+  res.send('items')
 });
 
+app.post('/data', function(req, res) {
+	// take req.body.filter to pull data from our database
+	console.log('app.post',req.body.filter)
+	res.send('yoiasf')
+})
 
-// app.get('/JTMBAK', function(req, res) {
-//   function success(result) {
-//     Result = JSON.parse(JSON.stringify(result));
-//     // console.log(  Result["pageTables"][0].tables );
-// 	res.send(Result["pageTables"][0].tables);
-//   }
-//   function error(err) {
-//     console.error('Error: ' + err);
-//   }
-//   pdf_table_extractor("../PDF/cat1_live.pdf",success,error);
-// });
+
+app.get('/TestDynamic', function(request, response) {  
+  function success(result) {
+  	// Push all items from table Parse into 1 array to return to client
+  	resultArr = [];
+    Result = JSON.parse( JSON.stringify(result) );
+    Result.pageTables.map( (val)=> {
+    	val.tables.map( (row)=>{
+    		resultArr.push(row);
+    	})
+    })
+    // console.log('resultArr',resultArr);
+    response.send(resultArr);
+  }
+  function error(err) {
+    console.error('Error: ' + err);
+  }
+ 
+  pdf_table_extractor("PDF/finalExams.pdf",success,error);
+});
+
 
 const port = process.env.PORT || 5000;
 
@@ -42,19 +51,6 @@ app.listen(port, function() {
 
 // var pdf_table_extractor = require("pdf-table-extractor");
 
-// app.get('/', function(request, response) {  
-//   function success(result) {
-//     Result = JSON.parse( JSON.stringify(result) );
-//     // console.log(  Result["pageTables"][0].tables );
-
-// 	    response.send( Result["pageTables"][0].tables );
-//   }
-//   function error(err) {
-//     console.error('Error: ' + err);
-//   }
- 
-//   pdf_table_extractor("FinalExams.pdf",success,error);
-// });
 
 //var port = process.env.PORT || 3000;
 // app.listen(port, function() {

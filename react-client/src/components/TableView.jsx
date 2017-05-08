@@ -8,55 +8,28 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
-
 // TO DO:
-class TableView extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { 
-      data: props.items,
-      selected: [1]
-    };
-    this.isSelected = this.isSelected.bind(this);
-    this.handleRowSelection = this.handleRowSelection.bind(this);
-  };
-  
-  // componentDidMount() {
-  //   var headers = this.state.data[0];
-  //   var rows = this.state.data.shift();
-  // }
+const TableView = (props) => (
 
-  isSelected (index) {
-    return this.state.selected.indexOf(index) !== -1;
-  };
-
-  handleRowSelection (selectedRows) {
-    this.setState({ selected: selectedRows });
-  };
-
-  render() {
-    return (
-      <Table onRowSelection={this.handleRowSelection}>
-        <TableHeader>
-          <TableRow>
-          {this.state.data[0].map( (item)=> ( 
-              <TableHeaderColumn>{item}</TableHeaderColumn>
-            ) )}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          { this.state.data.slice(1,this.state.data.length).map( (val, key1)=>(
-            <TableRow selected={this.isSelected(key1)}>
-            {val.map( (item, key2)=>(
-              <TableRowColumn>{item}</TableRowColumn>
-            ) )}
-            </TableRow> 
-          ) )}
-        </TableBody>
-      </Table>
-    );
-  }
-}
+  <Table onRowSelection={props.handleRowSelection} >
+    <TableHeader >
+      <TableRow >
+      {props.items[0].map( (item, key1)=> ( 
+          <TableHeaderColumn key={key1} style={{ whiteSpace:false, wordWrap:'break-word'}}>{item}</TableHeaderColumn>
+        ) )}
+      </TableRow>
+    </TableHeader>
+    <TableBody >
+      { props.items.slice(1, props.items.length).map( (val, key1)=>(
+        <TableRow selected={props.isSelected(key1)}>
+        {val.map( (item, key2)=>(
+          <TableRowColumn key={key2} style={{ whiteSpace:false, wordWrap:'break-word'}}>{item}</TableRowColumn>
+        ) )}
+        </TableRow> 
+      ) )}
+    </TableBody>
+  </Table>
+)
 
 export default TableView;
 
