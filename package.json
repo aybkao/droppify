@@ -24,6 +24,7 @@
   "homepage": "https://github.com/FreedomFighters1/droppify#readme",
   "dependencies": {
     "axios": "^0.16.1",
+    "bluebird": "^3.5.0",
     "body-parser": "^1.17.1",
     "bootstrap": "^4.0.0-alpha.6",
     "build-bundle": "^2.0.8",
@@ -40,6 +41,7 @@
     "reactstrap": "^4.5.0",
     "request": "^2.81.0",
     "request-promise": "^4.2.0",
+    "underscore": "^1.8.3",
     "webpack": "^2.4.1"
   },
   "engines": {

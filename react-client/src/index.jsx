@@ -33,8 +33,10 @@ class App extends React.Component {
     var ogThis = this;
     $.ajax({
       method: "GET",
-      url: '/TestDynamic',
+      url: '/allItems',
+      // url: '/items',
       success: (data) => {
+        data = JSON.parse(data);
         ogThis.setState({ items: data })
       },
       error: (err) => {
@@ -45,20 +47,21 @@ class App extends React.Component {
 
   handleClick () {
     var ogThis = this;
-    console.log('click')
     $.ajax({
       method: 'POST',
       url: '/data',
-      data: JSON.stringify({filter:this.state.filter}),
+      data: JSON.stringify({filter:ogThis.state.filter}),
       contentType: 'application/json',
       success: function(data) {
         console.log('AJAX POST Success')
 
        $.ajax({
           method: "GET",
-          url: 'http://localhost:'+port+'/TestDynamic',
+          url: 'http://localhost:'+port+'/items/'+ogThis.state.filter,
+          // url: 'http://localhost:5000/items/'+ogThis.state.filter,
           success: (data) => {
             console.log('Nested Ajax request Success!')
+            data = JSON.parse(data);
             ogThis.setState({ items: data })
           },
           error: (err) => {
