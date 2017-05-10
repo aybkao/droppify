@@ -1,43 +1,56 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-// const items = require('../database-mongo');
 const pdf_table_extractor = require("pdf-table-extractor"); //<-- FF
+const Items = require('../database-mongo/dbPull.js');
+// const post = require('../database-mongo/index.js');
 
 const app = express();
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/../public')));
 
-app.get('/items', function (req, res) {
-  res.send('items')
+app.get('/items/:kw', function (req, res) {
+  Items.find(
+  { "Course Location ": 
+    {"$regex": req.params.kw, 
+      "$options":"i"
+    } 
+  }).limit(30).exec( function (err, data) {
+    if (err) {
+      console.log( 'server get request failure', err)
+    } else {
+      console.log('server get request Success!', data)
+    }
+    res.end(JSON.stringify(data));
+  })
 });
 
 app.post('/data', function(req, res) {
 	// take req.body.filter to pull data from our database
-	console.log('app.post',req.body.filter)
+	console.log('Fake Post Data')
 	res.send('yoiasf')
 })
 
 
-app.get('/TestDynamic', function(request, response) {  
-  function success(result) {
-  	// Push all items from table Parse into 1 array to return to client
-  	resultArr = [];
-    Result = JSON.parse( JSON.stringify(result) );
-    Result.pageTables.map( (val)=> {
-    	val.tables.map( (row)=>{
-    		resultArr.push(row);
-    	})
-    })
-    // console.log('resultArr',resultArr);
-    response.send(resultArr);
-  }
-  function error(err) {
-    console.error('Error: ' + err);
-  }
- 
-  pdf_table_extractor("PDF/finalExams.pdf",success,error);
+app.get('/allItems', function (req, res) {
+  // console.log(req.params.kw)
+  // Items.find({"Course Location ": "San Jose " }).limit(30).exec( function (err, data) {
+  Items.find({}).limit(30).exec( function (err, data) {
+    if (err) {
+      console.log( 'server get request failure', err)
+    } else {
+      console.log('Success!')
+    }
+
+    res.end(JSON.stringify(data));
+  })
 });
+
+app.post('/data', function(req, res) {
+  // take req.body.filter to pull data from our database
+  
+  res.send('yoiasf')
+})
 
 
 const port = process.env.PORT || 5000;

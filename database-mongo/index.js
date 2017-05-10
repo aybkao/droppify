@@ -1,21 +1,18 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
+// mongoose.connect('mongodb://localhost/test11');
+mongoose.connect('mongodb://freedomfighters:freedomfighters@ds133231.mlab.com:33231/heroku_tn5ml1b6');
 var db = mongoose.connection;
 
 db.on('error', function() {
   console.log('mongoose connection error');
 });
-
 db.once('open', function() {
   console.log('mongoose connected successfully');
 });
-
 var pdf_table_extractor = require('pdf-table-extractor');
-
 
 // callback if pdf table extractor success
 function success(result) { 
-
   // use first array in first page to generate schema
   var colNames = result.pageTables[0].tables[0];
   var schemaObj = {};
@@ -54,3 +51,5 @@ function error(err) {
 }
  
 pdf_table_extractor("../PDF/cat1_live.pdf",success,error);
+
+module.exports = 1;
