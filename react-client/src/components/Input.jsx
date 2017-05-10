@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from 'react';
 import config from '../../../config.js';
 import Dropzone from 'react-dropzone';
@@ -74,23 +73,3 @@ class Input extends React.Component {
 }
 
 export default Input;
-=======
-import React, { Component } from 'react';
-
-class Input extends Component {
-  constructor(props) {
-    super(props);
-    
-  }
-  
-  render() {
-    return (
-      <div>
-        <input type="file" id="pdf-file"></input>
-      </div>
-    );
-  }
-}
-
-export default Input;
->>>>>>> e68907717fcf8cb08ce157438a2516cfb3e2620c
