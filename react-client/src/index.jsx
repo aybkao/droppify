@@ -29,21 +29,21 @@ class App extends React.Component {
   }
 
 
-  componentDidMount() {
-    var ogThis = this;
-    $.ajax({
-      method: "GET",
-      url: '/allItems',
-      // url: '/items',
-      success: (data) => {
-        data = JSON.parse(data);
-        ogThis.setState({ items: data })
-      },
-      error: (err) => {
-        console.log('componentDidMount err', err);
-      }
-    });
-  }
+  // componentDidMount() {
+  //   var ogThis = this;
+  //   $.ajax({
+  //     method: "GET",
+  //     url: '/allItems',
+  //     // url: '/items',
+  //     success: (data) => {
+  //       data = JSON.parse(data);
+  //       ogThis.setState({ items: data })
+  //     },
+  //     error: (err) => {
+  //       console.log('componentDidMount err', err);
+  //     }
+  //   });
+  // }
 
   handleClick () {
     var ogThis = this;
@@ -57,8 +57,8 @@ class App extends React.Component {
 
        $.ajax({
           method: "GET",
-          url: 'http://localhost:'+port+'/items/'+ogThis.state.filter,
-          // url: 'http://localhost:5000/items/'+ogThis.state.filter,
+          // url: 'http://localhost:'+port+'/items/'+ogThis.state.filter,
+          url: 'items/'+ogThis.state.filter,
           success: (data) => {
             console.log('Nested Ajax request Success!')
             data = JSON.parse(data);
