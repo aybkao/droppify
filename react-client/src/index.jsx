@@ -29,21 +29,21 @@ class App extends React.Component {
   }
 
 
-  // componentDidMount() {
-  //   var ogThis = this;
-  //   $.ajax({
-  //     method: "GET",
-  //     url: '/allItems',
-  //     // url: '/items',
-  //     success: (data) => {
-  //       data = JSON.parse(data);
-  //       ogThis.setState({ items: data })
-  //     },
-  //     error: (err) => {
-  //       console.log('componentDidMount err', err);
-  //     }
-  //   });
-  // }
+  componentDidMount() {
+    var ogThis = this;
+    $.ajax({
+      method: "GET",
+      url: '/allItems',
+      // url: '/items',
+      success: (data) => {
+        data = JSON.parse(data);
+        ogThis.setState({ items: data })
+      },
+      error: (err) => {
+        console.log('componentDidMount err', err);
+      }
+    });
+  }
 
   handleClick () {
     var ogThis = this;
