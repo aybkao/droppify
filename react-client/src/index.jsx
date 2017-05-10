@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import List from './components/List.jsx';
 import Nav from './components/Nav.jsx';  //<-- Created by JT to connect to Nav template 
+import Input from './components/Input.jsx';
 import ImportBar from './components/ImportBar.jsx'; //<-- Created by JT to connect to ImportBar template
 // ImportBar may be inside Nav. Let's decide. Or someone make an executive decision
 import TableView from './components/TableView.jsx'; //<-- Created by JT to connect to TableView template
@@ -93,6 +94,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>RENDERING DROPPIFY</h1>
+        <Input />
         <Nav />
         <ImportBar />
         <List items={this.state.items} />

@@ -26,8 +26,8 @@
     "axios": "^0.16.1",
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.1",
-    "bootstrap": "^4.0.0-alpha.6",
     "build-bundle": "^2.0.8",
+    "cloudinary": "^1.9.0",
     "express": "^4.15.2",
     "jquery": "^3.2.1",
     "material-ui": "^0.18.0",
@@ -38,10 +38,11 @@
     "react-addons-css-transition-group": "^15.5.2",
     "react-addons-transition-group": "^15.5.2",
     "react-dom": "^15.5.4",
-    "reactstrap": "^4.5.0",
+    "react-dropzone": "^3.13.1",
     "request": "^2.81.0",
     "request-promise": "^4.2.0",
     "underscore": "^1.8.3",
+    "superagent": "^3.5.2",
     "webpack": "^2.4.1"
   },
   "engines": {

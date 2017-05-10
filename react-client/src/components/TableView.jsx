@@ -7,10 +7,8 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-
 // TO DO:
 const TableView = (props) => (
-
   <Table onRowSelection={props.handleRowSelection} >
     <TableHeader >
       <TableRow >
@@ -30,8 +28,4 @@ const TableView = (props) => (
     </TableBody>
   </Table>
 )
-
 export default TableView;
-
-
-
