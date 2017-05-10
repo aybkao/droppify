@@ -30,9 +30,11 @@
     "build-bundle": "^2.0.8",
     "cloudinary": "^1.9.0",
     "cloudinary-jquery": "^2.3.0",
+    "cloudinary-jquery-file-upload": "^2.3.0",
     "cloudinary-react": "^1.0.3",
     "express": "^4.15.2",
     "jquery": "^3.2.1",
+    "jquery.cloudinary": "^1.0.25",
     "material-ui": "^0.18.0",
     "mongo": "^0.1.0",
     "mongoose": "^4.9.7",
@@ -41,9 +43,11 @@
     "react-addons-css-transition-group": "^15.5.2",
     "react-addons-transition-group": "^15.5.2",
     "react-dom": "^15.5.4",
+    "react-dropzone": "^3.13.1",
     "request": "^2.81.0",
     "request-promise": "^4.2.0",
     "underscore": "^1.8.3",
+    "superagent": "^3.5.2",
     "webpack": "^2.4.1"
   },
   "engines": {
