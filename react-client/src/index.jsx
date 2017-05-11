@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactRouter from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { ReactRouter as Route } from 'react-router-dom';
 import $ from 'jquery';
 import List from './components/List.jsx';
 import Nav from './components/Nav.jsx';
@@ -13,8 +15,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import injectTapEventPlugin from 'react-tap-event-plugin';
 // injectTapEventPlugin();
 
-const Router = ReactRouter.BrowserRouter;
-const Route = ReactRouter.Route;
+// const Route = ReactRouter.Route;
 
 class App extends React.Component {
   constructor(props) {
@@ -92,17 +93,21 @@ class App extends React.Component {
 
   render () {
     return (
-      <div>
-        <h1>RENDERING DROPPIFY</h1>
-        <Input />
-        <Nav />
-        <ImportBar />
-        <List items={this.state.items} />
-          <input type='text' onChange={this.handleChange}/>
-          <input type='button' value='Filter Table' onClick={this.handleClick}/>
-        <TableView items={this.state.items} handleRowSelection={this.handleRowSelection} isSelected={this.isSelected}/>
-        <PageNumber />
-      </div>)
+      <Router>
+        <div>
+          <div className='input'>
+            <Route> path='/' component={Input}</Route>
+          </div>
+
+          <div className='table'>
+            <Route path='/table' component={TableView}>
+              <TableView items={this.state.items} handleRowSelection={this.handleRowSelection} isSelected={this.isSelected}/>
+            </Route>
+            <h1>RENDERING DROPPIFY</h1>
+          </div>
+        </div>
+      </Router>
+    )
   }
 }
 
@@ -112,15 +117,14 @@ const AppMUI = () => (
   </MuiThemeProvider>
 )
 
+
 ReactDOM.render(<AppMUI />, document.getElementById('app'));
 
-  /*
-    var pdf_table_extractor = require("pdf-table-extractor");
-    function success(result) {
-      Result = JSON.parse( JSON.stringify(result) );
-      console.log(  Result["pageTables"][0].tables );
-    }
-    function error(err) {
-      console.error('Error: ' + err);
-    }
-    pdf_table_extractor("finalExams.pdf",success,error); */
+export default {
+  App,
+  AppMUI
+}
+//this was being rendered above the TableView component
+              // <List items={this.state.items} />
+              //   <input type='text' onChange={this.handleChange}/>
+              //   <input type='button' value='Filter Table' onClick={this.handleClick}/>
