@@ -98,7 +98,7 @@ class App extends React.Component {
             <div className='input'>
               <Route exact path='/' component={Input} /> 
             </div>
-              <Route path='/table' render={() =>
+              <Route path='/tableView' render={() =>
                 <div className='table'>
                   <TableView items={this.state.items} handleRowSelection={this.handleRowSelection} isSelected={this.isSelected}/>
                 </div>
