@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactRouter from 'react-router-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { ReactRouter as Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import $ from 'jquery';
 import List from './components/List.jsx';
 import Nav from './components/Nav.jsx';
@@ -93,37 +92,26 @@ class App extends React.Component {
 
   render () {
     return (
-      <Router>
-        <div>
-          <div className='input'>
-            <Route> path='/' component={Input}</Route>
+      <MuiThemeProvider>
+        <Router>
+          <div>
+            <div className='input'>
+              <Route exact path='/' component={Input} /> 
+            </div>
+              <Route path='/table' render={() =>
+                <div className='table'>
+                  <TableView items={this.state.items} handleRowSelection={this.handleRowSelection} isSelected={this.isSelected}/>
+                </div>
+              }/>
           </div>
-
-          <div className='table'>
-            <Route path='/table' component={TableView}>
-              <TableView items={this.state.items} handleRowSelection={this.handleRowSelection} isSelected={this.isSelected}/>
-            </Route>
-            <h1>RENDERING DROPPIFY</h1>
-          </div>
-        </div>
-      </Router>
+        </Router>
+      </MuiThemeProvider>
     )
   }
 }
 
-const AppMUI = () => (
-  <MuiThemeProvider>
-    <App />
-  </MuiThemeProvider>
-)
+ReactDOM.render(<App />, document.getElementById('app'));
 
-
-ReactDOM.render(<AppMUI />, document.getElementById('app'));
-
-export default {
-  App,
-  AppMUI
-}
 //this was being rendered above the TableView component
               // <List items={this.state.items} />
               //   <input type='text' onChange={this.handleChange}/>
