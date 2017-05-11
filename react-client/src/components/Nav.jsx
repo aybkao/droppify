@@ -21,6 +21,12 @@ const Nav = (props) => (
       signup
     </NavLink>
    </li>
+
+   <li>
+    <NavLink activeClassName='active' to='/tableView'>
+      TableView
+    </NavLink>
+   </li>
   </ul>
 )
 
