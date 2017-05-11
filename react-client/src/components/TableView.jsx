@@ -18,7 +18,7 @@ const TableView = (props) => (
       </TableRow>
     </TableHeader>
     <TableBody >
-      { props.items.slice(1, props.items.length).map( (val, key1)=>(
+      { props.items./*slice(1, props.items.length).*/map( (val, key1)=>(
         <TableRow selected={props.isSelected(key1)}>
         {Object.keys(val).map( (key2)=>(
           <TableRowColumn key={key2} style={{ whiteSpace:false, wordWrap:'break-word'}}>{val[key2]}</TableRowColumn>
