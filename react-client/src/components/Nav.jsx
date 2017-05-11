@@ -1,11 +1,27 @@
 import React from 'react';
+const Link = require('react-router-dom').Link;
+const NavLink = require('react-router-dom').NavLink;
 
-// Created NAV to implement navigation bar. Standard template created by JT. 
-// TO DO:
 const Nav = (props) => (
-  <div>
-    <h4> Nav Bar </h4>
-  </div>
+  <ul className='nav'>
+   <li>
+    <NavLink exact activeClassName='active' to='/'>
+      Import pdfs
+    </NavLink>
+   </li>
+
+   <li>
+    <NavLink activeClassName='active' to='/login'>
+      Login
+    </NavLink>
+   </li>
+   
+   <li>
+    <NavLink activeClassName='active' to='/signup'>
+      signup
+    </NavLink>
+   </li>
+  </ul>
 )
 
 export default Nav;
