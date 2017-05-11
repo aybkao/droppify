@@ -1,19 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactRouter from 'react-router-dom';
 import $ from 'jquery';
 import List from './components/List.jsx';
-import Nav from './components/Nav.jsx';  //<-- Created by JT to connect to Nav template 
+import Nav from './components/Nav.jsx';
 import Input from './components/Input.jsx';
-import ImportBar from './components/ImportBar.jsx'; //<-- Created by JT to connect to ImportBar template
-// ImportBar may be inside Nav. Let's decide. Or someone make an executive decision
-import TableView from './components/TableView.jsx'; //<-- Created by JT to connect to TableView template
-import PageNumber from './components/PageNumber.jsx'; //<-- Created by JT to connect to TableView template
-import ExampleTableData from '../../ExampleTableData.js'; //<-- Dummy data
+import ImportBar from './components/ImportBar.jsx';
+import TableView from './components/TableView.jsx';
+import PageNumber from './components/PageNumber.jsx';
+import ExampleTableData from '../../ExampleTableData.js';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import injectTapEventPlugin from 'react-tap-event-plugin';
 // injectTapEventPlugin();
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-
+const Router = ReactRouter.BrowserRouter;
+const Route = ReactRouter.Route;
 
 class App extends React.Component {
   constructor(props) {
@@ -28,7 +29,6 @@ class App extends React.Component {
     this.isSelected = this.isSelected.bind(this);
     this.handleRowSelection = this.handleRowSelection.bind(this);
   }
-
 
   componentDidMount() {
     var ogThis = this;
