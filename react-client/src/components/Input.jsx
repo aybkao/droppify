@@ -1,7 +1,7 @@
 import React from 'react';
-// import config from '../../../config.js';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
+// import config from '../../../config.js';
 
 const CLOUDINARY_UPLOAD_PRESET = 'dropiffy';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dropiffy/image/upload';
