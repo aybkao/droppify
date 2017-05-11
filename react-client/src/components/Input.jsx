@@ -1,6 +1,7 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
+import Nav from './Nav.jsx';
 // import config from '../../../config.js';
 
 const CLOUDINARY_UPLOAD_PRESET = 'dropiffy';
@@ -38,7 +39,7 @@ class Input extends React.Component {
         console.error(err);
       }
 
-      if (response.body.secure_url !== '') {
+      if (response.body.secure_url) {
         this.setState({
           uploadedFileCloudinaryUrl: response.body.secure_url
         });
@@ -50,24 +51,30 @@ class Input extends React.Component {
 
   render() {
     return (
-      <form>
-        <div className="FileUpload">
-          <Dropzone
-            onDrop={this.onImageDrop}
-            multiple={false}
-            name='file'
-          >
-            <div> Drop a pdf or click to select a file to upload. </div>
-          </Dropzone>
-        </div>
-
+      <div>  
         <div>
-          {this.state.uploadedFileCloudinaryUrl === '' ? null :
-          <div>
-            <p> Thank you, your file is being uploaded </p>
-          </div>}
+          <Nav />
         </div>
-      </form>
+        <form>
+          <div className="input">
+            <Dropzone
+              onDrop={this.onImageDrop}
+              multiple={false}
+              name='file'
+            >
+              <div> Drop a pdf or click to select a file to upload. </div>
+            </Dropzone>
+          </div>
+
+          <div>
+            {this.state.uploadedFileCloudinaryUrl === '' ? null :
+              <div>
+                <p> Thank you, your file is being uploaded </p>
+              </div>
+            }
+          </div>
+        </form>
+      </div>
     )
   }
 }
