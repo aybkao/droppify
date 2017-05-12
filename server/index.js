@@ -20,7 +20,7 @@ app.get('/items/:kw', function (req, res) {
     Object.keys(val).map( (key, index) =>  { arr.push(key) })
     // val is an Array
     // Loop is used to build an object with regex values.
-    for (var i=0; i<arr.length; i++){
+    for (var i = 0; i < arr.length; i++){
       var key = arr[i];
       filterObj[arr[i]]={"$regex": req.params.kw, "$options":"i"}
     }
