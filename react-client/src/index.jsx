@@ -111,8 +111,3 @@ class App extends React.Component {
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
-
-//this was being rendered above the TableView component
-              // <List items={this.state.items} />
-              //   <input type='text' onChange={this.handleChange}/>
-              //   <input type='button' value='Filter Table' onClick={this.handleClick}/>
