@@ -61,7 +61,7 @@ class App extends React.Component {
           // url: 'http://localhost:'+port+'/items/'+ogThis.state.filter,
           url: 'items/'+ogThis.state.filter,
           success: (data) => {
-            console.log('Nested Ajax request Success!')
+            console.log('Nested Ajax request Success!', data)
             data = JSON.parse(data);
             ogThis.setState({ items: data })
           },
