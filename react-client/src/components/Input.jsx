@@ -2,6 +2,7 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import Nav from './Nav.jsx';
+import axios from 'axios';
 // import config from '../../../config.js';
 
 const CLOUDINARY_UPLOAD_PRESET = 'dropiffy';
@@ -12,11 +13,28 @@ class Input extends React.Component {
     super(props);
       this.state = {
       uploadedFile: null,
-      uploadedFileCloudinaryUrl: ''
+      cloudinaryUrl: ''
     };
 
     this.onImageDrop = this.onImageDrop.bind(this);
     this.handleImageUpload = this.handleImageUpload.bind(this);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.cloudinaryUrl !== this.state.cloudinaryUrl && this.state.cloudinaryUrl !== '') {
+      console.log('component did update')
+      this.getTables();
+    }
+  }
+
+  getTables() {
+    axios.get(`/table?cloudinaryUrl=${this.state.cloudinaryUrl}`)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   onImageDrop(files) {
@@ -41,7 +59,7 @@ class Input extends React.Component {
 
       if (response.body.secure_url) {
         this.setState({
-          uploadedFileCloudinaryUrl: response.body.secure_url
+          cloudinaryUrl: response.body.secure_url
         });
 
         console.log('this is the response: ', response);
@@ -67,7 +85,7 @@ class Input extends React.Component {
           </div>
 
           <div>
-            {this.state.uploadedFileCloudinaryUrl === '' ? null :
+            {this.state.cloudinaryUrl === '' ? null :
               <div>
                 <p> Thank you, your file is being uploaded </p>
               </div>
