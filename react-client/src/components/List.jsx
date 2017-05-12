@@ -1,9 +1,9 @@
 import React from 'react';
 
-const List = (props) => (
+const List = ({items}) => (
   <div>
     <h4> List Component </h4>
-    There are { props.items.length } items.
+    There are {items.length} items.
   </div>
 )
 

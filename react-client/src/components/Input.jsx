@@ -1,7 +1,9 @@
 import React from 'react';
-// import config from '../../../config.js';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
+import Nav from './Nav.jsx';
+import axios from 'axios';
+// import config from '../../../config.js';
 
 const CLOUDINARY_UPLOAD_PRESET = 'dropiffy';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dropiffy/image/upload';
@@ -11,11 +13,32 @@ class Input extends React.Component {
     super(props);
       this.state = {
       uploadedFile: null,
-      uploadedFileCloudinaryUrl: ''
+      cloudinaryUrl: '',
+      fileTitle: ''
     };
 
     this.onImageDrop = this.onImageDrop.bind(this);
     this.handleImageUpload = this.handleImageUpload.bind(this);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.cloudinaryUrl !== this.state.cloudinaryUrl && this.state.cloudinaryUrl !== '') {
+      console.log('component did update')
+      this.sendUrl();
+    }
+  }
+
+  sendUrl() {
+    axios.post('/url', {
+    url: this.state.cloudinaryUrl,
+    title: this.state.fileTitle
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   onImageDrop(files) {
@@ -38,36 +61,43 @@ class Input extends React.Component {
         console.error(err);
       }
 
-      if (response.body.secure_url !== '') {
+      if (response.body.secure_url) {
         this.setState({
-          uploadedFileCloudinaryUrl: response.body.secure_url
+          cloudinaryUrl: response.body.secure_url,
+          fileTitle: response.body.original_filename
         });
 
-        console.log('this is the response: ', response);
+        console.log('this is the response body: ', response.body);
       }
     });
   }
 
   render() {
     return (
-      <form>
-        <div className="FileUpload">
-          <Dropzone
-            onDrop={this.onImageDrop}
-            multiple={false}
-            name='file'
-          >
-            <div> Drop a pdf or click to select a file to upload. </div>
-          </Dropzone>
-        </div>
-
+      <div>  
         <div>
-          {this.state.uploadedFileCloudinaryUrl === '' ? null :
-          <div>
-            <p> Thank you, your file is being uploaded </p>
-          </div>}
+          <Nav />
         </div>
-      </form>
+        <form>
+          <div className="input">
+            <Dropzone
+              onDrop={this.onImageDrop}
+              multiple={false}
+              name='file'
+            >
+              <div> Drop a pdf or click to select a file to upload. </div>
+            </Dropzone>
+          </div>
+
+          <div>
+            {this.state.cloudinaryUrl === '' ? null :
+              <div>
+                <p> Thank you, your file is being uploaded </p>
+              </div>
+            }
+          </div>
+        </form>
+      </div>
     )
   }
 }

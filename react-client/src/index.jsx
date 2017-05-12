@@ -1,19 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactRouter from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import $ from 'jquery';
 import List from './components/List.jsx';
-import Nav from './components/Nav.jsx';  //<-- Created by JT to connect to Nav template 
+import Nav from './components/Nav.jsx';
 import Input from './components/Input.jsx';
-import ImportBar from './components/ImportBar.jsx'; //<-- Created by JT to connect to ImportBar template
-// ImportBar may be inside Nav. Let's decide. Or someone make an executive decision
-import TableView from './components/TableView.jsx'; //<-- Created by JT to connect to TableView template
-import PageNumber from './components/PageNumber.jsx'; //<-- Created by JT to connect to TableView template
-import ExampleTableData from '../../ExampleTableData.js'; //<-- Dummy data
+import ImportBar from './components/ImportBar.jsx';
+import TableView from './components/TableView.jsx';
+import PageNumber from './components/PageNumber.jsx';
+import ExampleTableData from '../../ExampleTableData.js';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import injectTapEventPlugin from 'react-tap-event-plugin';
 // injectTapEventPlugin();
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-
+// const Route = ReactRouter.Route;
 
 class App extends React.Component {
   constructor(props) {
@@ -28,7 +29,6 @@ class App extends React.Component {
     this.isSelected = this.isSelected.bind(this);
     this.handleRowSelection = this.handleRowSelection.bind(this);
   }
-
 
   componentDidMount() {
     var ogThis = this;
@@ -92,35 +92,24 @@ class App extends React.Component {
 
   render () {
     return (
-      <div>
-        <h1>RENDERING DROPPIFY</h1>
-        <Input />
-        <Nav />
-        <ImportBar />
-        <List items={this.state.items} />
-          <input type='text' onChange={this.handleChange}/>
-          <input type='button' value='Filter Table' onClick={this.handleClick}/>
-        <TableView items={this.state.items} handleRowSelection={this.handleRowSelection} isSelected={this.isSelected}/>
-        <PageNumber />
-      </div>)
+      <MuiThemeProvider>
+        <Router>
+          <div>
+            <div className='input'>
+              <Route exact path='/' component={Input} /> 
+            </div>
+              <Route path='/tableView' render={() =>
+                <div className='table'>
+                  <input type='text' onChange={this.handleChange}/>
+                  <input type='button' value='Filter Table' onClick={this.handleClick}/>
+                  <TableView items={this.state.items} handleRowSelection={this.handleRowSelection} isSelected={this.isSelected}/>
+                </div>
+              }/>
+          </div>
+        </Router>
+      </MuiThemeProvider>
+    )
   }
 }
 
-const AppMUI = () => (
-  <MuiThemeProvider>
-    <App />
-  </MuiThemeProvider>
-)
-
-ReactDOM.render(<AppMUI />, document.getElementById('app'));
-
-  /*
-    var pdf_table_extractor = require("pdf-table-extractor");
-    function success(result) {
-      Result = JSON.parse( JSON.stringify(result) );
-      console.log(  Result["pageTables"][0].tables );
-    }
-    function error(err) {
-      console.error('Error: ' + err);
-    }
-    pdf_table_extractor("finalExams.pdf",success,error); */
+ReactDOM.render(<App />, document.getElementById('app'));

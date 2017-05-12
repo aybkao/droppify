@@ -1,13 +1,13 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import $ from 'jquery';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-// Created ImportBar to implement pdf import bar. Standard template created by JT. 
-// TO DO:
-const SearchBar = (props) => (
+const Search = ({handleChange, handleClick}) => (
   <div>
-    <h4> SearchBar </h4>
-    <input type='text' value='value' onChange={props.handleChange.bind(this, )}/>
-    <input type='button' value='Submit' onClick={props.handleClick}/>
+    <input type='text' value='value' onChange={handleChange.bind(this, )}/>
+    <input type='button' value='Submit' onClick={handleClick}/>
   </div>
 )
 
-export default SearchBar;
+export default Search;
