@@ -13,7 +13,8 @@ class Input extends React.Component {
     super(props);
       this.state = {
       uploadedFile: null,
-      cloudinaryUrl: ''
+      cloudinaryUrl: '',
+      fileTitle: ''
     };
 
     this.onImageDrop = this.onImageDrop.bind(this);
@@ -23,12 +24,15 @@ class Input extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevState.cloudinaryUrl !== this.state.cloudinaryUrl && this.state.cloudinaryUrl !== '') {
       console.log('component did update')
-      this.getTables();
+      this.sendUrl();
     }
   }
 
-  getTables() {
-    axios.get(`/table?cloudinaryUrl=${this.state.cloudinaryUrl}`)
+  sendUrl() {
+    axios.post('/url', {
+    url: this.state.cloudinaryUrl,
+    title: this.state.fileTitle
+    })
     .then(function (response) {
       console.log(response);
     })
@@ -59,10 +63,11 @@ class Input extends React.Component {
 
       if (response.body.secure_url) {
         this.setState({
-          cloudinaryUrl: response.body.secure_url
+          cloudinaryUrl: response.body.secure_url,
+          fileTitle: response.body.original_filename
         });
 
-        console.log('this is the response: ', response);
+        console.log('this is the response body: ', response.body);
       }
     });
   }
