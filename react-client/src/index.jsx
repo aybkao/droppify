@@ -100,6 +100,8 @@ class App extends React.Component {
             </div>
               <Route path='/tableView' render={() =>
                 <div className='table'>
+                  <input type='button' value='Filter Table' onClick={this.handleClick}/>
+                  <input type='text' onChange={this.handleChange}/>
                   <TableView items={this.state.items} handleRowSelection={this.handleRowSelection} isSelected={this.isSelected}/>
                 </div>
               }/>
