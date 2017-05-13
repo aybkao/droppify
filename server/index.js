@@ -2,10 +2,79 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const pdf_table_extractor = require("pdf-table-extractor"); //<-- FF
-const Items = require('../database-mongo/dbPull.js');
-// const post = require('../database-mongo/index.js');
+const allSchemas = require('../database-mongo/dbPull.js');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const configAuth = require('./configAuth.js');
 
+var User = allSchemas.user;
+var Items = allSchemas.items;
+// const post = require('../database-mongo/index.js');
 const app = express();
+
+////////////GOOGLE STRATEGY///////////////////
+passport.use(new GoogleStrategy({
+    clientID: configAuth.googleAuth.clientID,
+    clientSecret: configAuth.googleAuth.clientSecret,
+    callbackURL: configAuth.googleAuth.callbackURL
+  },
+  function(accessToken, refreshToken, profile, done) {
+    console.log('accessToken', accessToken);
+    console.log('refreshToken', refreshToken);
+    console.log('profile', profile);
+    console.log('email', profile.emails[0].value);
+    
+    User.find({'googleID': profile.id}, function(err, data) {
+      if (err) {
+        return done(err);
+      }
+      //if no data create new user with values from Google
+      if (data.length === 0) {
+        user = new User({
+          googleID: profile.id, 
+          name: profile.displayName, 
+          email: profile.emails[0].value
+        });
+        user.save(function(err, user) {
+          if (err) console.log(err);
+          return done(err, user);
+        });
+      } else {
+        //found user. Return
+        return done(err, data);
+      }
+    });
+  }
+));
+
+
+passport.serializeUser(function(user, cb) {
+  cb(null, user);
+});
+
+passport.deserializeUser(function(obj, cb) {
+  cb(null, obj);
+});
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('/auth/google', passport.authenticate('google', 
+  { session: false, scope: ['profile', 'email'] }));
+
+app.get('/auth/google/callback', 
+  passport.authenticate('google', {failureRedirect: '/'}), function(req, res) {
+    res.redirect('/profile')
+  });
+
+app.get('/profile', function (req, res) {
+  console.log('we got to the profile page');
+  res.send('AUTHENTICATION OK!');
+});
+////////////END OF GOOGLE STRATEGY////////////
+
+
+
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/../public')));
 

@@ -11,15 +11,11 @@ const Nav = (props) => (
    </li>
 
    <li>
-    <NavLink activeClassName='active' to='/login'>
-      Login
-    </NavLink>
+    <a href="/auth/google">Login</a>
    </li>
    
    <li>
-    <NavLink activeClassName='active' to='/signup'>
-      signup
-    </NavLink>
+    <a href="https://accounts.google.com/SignUp?hl=en-GB">Signup</a>
    </li>
 
    <li>
