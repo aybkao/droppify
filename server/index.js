@@ -10,13 +10,9 @@ const configAuth = require('./configAuth.js');
 var User = allSchemas.user;
 var Items = allSchemas.items;
 // const post = require('../database-mongo/index.js');
-
 const app = express();
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, '/../public')));
 
-
-////// GOOGLE STRATEGY ////////////
+////////////GOOGLE STRATEGY///////////////////
 passport.use(new GoogleStrategy({
     clientID: configAuth.googleAuth.clientID,
     clientSecret: configAuth.googleAuth.clientSecret,
@@ -75,11 +71,12 @@ app.get('/profile', function (req, res) {
   console.log('we got to the profile page');
   res.send('AUTHENTICATION OK!');
 });
-
-////////////END OF GOOGLE STRATEGY ////////////////
-
+////////////END OF GOOGLE STRATEGY////////////
 
 
+
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, '/../public')));
 
 // :kw takes in /items/<any keyword> and passes the kw to req.params.kw below. 
 app.get('/items/:kw', function (req, res) {
