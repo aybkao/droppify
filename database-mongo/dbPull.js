@@ -13,7 +13,8 @@ var Items = mongoose.model('Exp', itemSchema);
 //// login schema 
 var UserSchema = mongoose.Schema({
   googleID: {type: String, unique: true},
-  name: String
+  name: String, 
+  email: String
 }) 
 var User = mongoose.model('User', UserSchema);
 

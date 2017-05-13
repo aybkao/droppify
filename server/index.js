@@ -26,29 +26,31 @@ passport.use(new GoogleStrategy({
     console.log('accessToken', accessToken);
     console.log('refreshToken', refreshToken);
     console.log('profile', profile);
+    console.log('email', profile.emails[0].value);
     
-    User.find({'googleID': profile.id}, 
-      function(err, user) {
-        if (err) {
-          return done(err);
-        }
-        //No user was found... so create a new user with values from Facebook (all the profile. stuff)
-        if (!user) {
-          user = new User({
-            googleID: profile.id, 
-            name: profile.displayName
-            });
-          user.save(function(err, user) {
-            if (err) console.log(err);
-              return done(err, user);
-            });
-        } else {
-          //found user. Return
+    User.find({'googleID': profile.id}, function(err, data) {
+      if (err) {
+        return done(err);
+      }
+      //if no data create new user with values from Google
+      if (data.length === 0) {
+        user = new User({
+          googleID: profile.id, 
+          name: profile.displayName, 
+          email: profile.emails[0].value
+        });
+        user.save(function(err, user) {
+          if (err) console.log(err);
           return done(err, user);
-        }
-      });
+        });
+      } else {
+        //found user. Return
+        return done(err, data);
+      }
+    });
   }
 ));
+
 
 passport.serializeUser(function(user, cb) {
   cb(null, user);
@@ -61,17 +63,19 @@ passport.deserializeUser(function(obj, cb) {
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/auth/google', passport.authenticate('google', { session: false, scope: ['profile', 'email'] }));
+app.get('/auth/google', passport.authenticate('google', 
+  { session: false, scope: ['profile', 'email'] }));
 
 app.get('/auth/google/callback', 
   passport.authenticate('google', {failureRedirect: '/'}), function(req, res) {
-    res.redirect('/')
+    res.redirect('/profile')
   });
 
 app.get('/profile', function (req, res) {
   console.log('we got to the profile page');
   res.send('AUTHENTICATION OK!');
 });
+
 ////////////END OF GOOGLE STRATEGY ////////////////
 
 
