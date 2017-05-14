@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+let filePath;
 // mongoose.connect('mongodb://localhost/test11');
 mongoose.connect('mongodb://freedomfighters:freedomfighters@ds133231.mlab.com:33231/heroku_tn5ml1b6');
 var db = mongoose.connection;
@@ -9,23 +10,23 @@ db.on('error', function() {
 db.once('open', function() {
   console.log('mongoose connected successfully');
 });
-var pdf_table_extractor = require('pdf-table-extractor');
+var pdfTableExtractor = require('pdf-table-extractor');
 
 // callback if pdf table extractor success
-function success(result) { 
+tableParseSuccess = (result) => { 
   // use first array in first page to generate schema
   var colNames = result.pageTables[0].tables[0];
   var schemaObj = {};
   for (var i = 0; i < colNames.length; i++) {
     schemaObj[colNames[i]] = typeof colNames[i];
   }
-  console.log("SCHEMA", schemaObj);
+  console.log('SCHEMA', schemaObj);
   var exampleSchema = mongoose.Schema(schemaObj);
   var Exp = mongoose.model('exp', exampleSchema);  
 
   // helper function to set particular page and set starting row for saving
-  function savePageTableToMongo(page, begin_row) {
-    for (var j = begin_row; j < result.pageTables[page].tables.length; j++) {
+  savePageTableToMongo = (page, beginRow) => {
+    for (var j = beginRow; j < result.pageTables[page].tables.length; j++) {
       var data = result.pageTables[page].tables[j];
       var dataObj = {};
       for (var i = 0; i < colNames.length; i++) {
@@ -40,15 +41,17 @@ function success(result) {
   savePageTableToMongo(0, 1);
   
   // For all other pages we save all rows. After page 39 all rows are empty.
-  for (var k = 1; k < 39; k++) {
+  for (var k = 1; k < result.numPages; k++) {
     savePageTableToMongo(k, 0);
   }
 };
 
 //Error 
-function error(err) {
-   console.error('Error: ' + err);
-}
- 
-pdf_table_extractor("../PDF/cat1_live.pdf",success,error);
-module.exports = 1;
+tableParseError = (err) => {
+  console.error('Error: ' + err);
+};
+
+module.exports = {
+  tableParseSuccess: tableParseSuccess,
+  tableParseError: tableParseError
+};

@@ -9,7 +9,7 @@
     "start-dev": "nodemon ./server/index.js",
     "react-dev": "webpack -d --watch",
     "mongo-dev": "mongod --dbpath database-mongo/db",
-    "build": "webpack -p --progress --colors",
+    "build": "NODE_ENV=production webpack -p --progress --colors",
     "heroku-postbuild": "npm run build"
   },
   "repository": {
@@ -33,6 +33,7 @@
     "material-ui": "^0.18.0",
     "mongo": "^0.1.0",
     "mongoose": "^4.9.7",
+    "multer": "^1.3.0",
     "passport": "^0.3.2",
     "passport-google-oauth20": "^1.0.0",
     "pdf-table-extractor": "^1.0.3",

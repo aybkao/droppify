@@ -3,7 +3,7 @@ import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import Nav from './Nav.jsx';
 import axios from 'axios';
-// import max from 'pdf-table-extractor';
+//import {Redirect} from 'react-router-dom';
 // import config from '../../../config.js';
 
 const CLOUDINARY_UPLOAD_PRESET = 'dropiffy';
@@ -15,43 +15,56 @@ class Input extends React.Component {
       this.state = {
       uploadedFile: null,
       cloudinaryUrl: '',
-      fileTitle: ''
+      fileTitle: '',
+      redirect: false //if this turns true then we have a response and we should redirect via a ternary operator in the render function
     };
     this.onImageDrop = this.onImageDrop.bind(this);
-    this.handleImageUpload = this.handleImageUpload.bind(this);
+    this.uploadToCloudinary = this.uploadToCloudinary.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.cloudinaryUrl !== this.state.cloudinaryUrl && this.state.cloudinaryUrl !== '') {
-      console.log('component did update')
-      this.sendUrl();
+        this.sendUrl();
     }
   }
 
   sendUrl() {
     axios.post('/url', {
-    url: this.state.cloudinaryUrl,
-    title: this.state.fileTitle
+      url: this.state.cloudinaryUrl,
+      title: this.state.fileTitle,
     })
-    .then(function (response) {
+    .then((response) => {
+      //redirect is true
       console.log(response);
+      console.log(this.state.uploadedFile);
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log(error);
     });
   }
 
   onImageDrop(files) {
+    let uploadedPdf = new FormData();
+    uploadedPdf.append('file', files[0]);
+
+    request.post('/upload')
+      .send(uploadedPdf)
+      .end((err, resp) => {
+        if (err) {
+          console.log('error in onImageDrop Post to /upload: ', err);
+        } else {
+          return resp;
+        }
+      });
+
     this.setState({
       uploadedFile: files[0]
     });
 
-    this.handleImageUpload(files[0]);
+    this.uploadToCloudinary(files[0]);
   }
 
-  handleImageUpload(file) {
-    console.log(`this is the file: ${file}`);
-  
+  uploadToCloudinary(file) {
     let upload = request.post(CLOUDINARY_UPLOAD_URL)
       .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
       .field('file', file)
@@ -66,8 +79,6 @@ class Input extends React.Component {
           cloudinaryUrl: response.body.secure_url,
           fileTitle: response.body.original_filename
         });
-
-        console.log('this is the response body: ', response.body);
       }
     });
   }
