@@ -15,7 +15,8 @@ var UserSchema = mongoose.Schema({
   googleID: {type: String, unique: true},
   name: String, 
   email: String
-}) 
+});
+ 
 var User = mongoose.model('User', UserSchema);
 
 var allSchemas = {};
