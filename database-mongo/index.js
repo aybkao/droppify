@@ -51,5 +51,4 @@ function error(err) {
 }
  
 pdf_table_extractor("../PDF/cat1_live.pdf",success,error);
-
 module.exports = 1;

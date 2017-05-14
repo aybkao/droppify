@@ -47,7 +47,6 @@ passport.use(new GoogleStrategy({
   }
 ));
 
-
 passport.serializeUser(function(user, cb) {
   cb(null, user);
 });
@@ -79,7 +78,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/../public')));
 
 // :kw takes in /items/<any keyword> and passes the kw to req.params.kw below. 
-app.get('/items/:kw', function (req, res) {
+app.get('/items/:kw', function (req, res) {  
   var arr = [];
   var filterObj = [];
   var filterArr = [];

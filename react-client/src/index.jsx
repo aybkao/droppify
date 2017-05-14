@@ -47,6 +47,8 @@ class App extends React.Component {
 
   handleClick () {
     var ogThis = this;
+    var slash = this.state.filter;
+    slash = slash.replace(/\//g, '%2f');
     $.ajax({
       method: 'POST',
       url: '/data',
@@ -57,7 +59,7 @@ class App extends React.Component {
 
        $.ajax({
           method: "GET",
-          url: 'items/'+ogThis.state.filter,
+          url: 'items/'+slash,
           success: (data) => {
             console.log('Nested Ajax request Success!')
             data = JSON.parse(data);
