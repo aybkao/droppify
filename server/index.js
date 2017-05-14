@@ -8,7 +8,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const configAuth = require('./configAuth.js');
 const tableParse = require('../database-mongo/index.js');
 const multer = require('multer');
-var upload = multer({ dest: '../PDF'});
+var upload = multer({ dest: './PDF'});
 
 var User = allSchemas.user;
 var Items = allSchemas.items;
@@ -24,11 +24,6 @@ passport.use(new GoogleStrategy({
   callbackURL: configAuth.googleAuth.callbackURL
 },
   function(accessToken, refreshToken, profile, done) {
-    console.log('accessToken', accessToken);
-    console.log('refreshToken', refreshToken);
-    console.log('profile', profile);
-    console.log('email', profile.emails[0].value);
-    
     User.find({'googleID': profile.id}, function(err, data) {
       if (err) {
         return done(err);
@@ -128,9 +123,9 @@ app.post('/url', (req, res) => {
 });
 
 app.post('/upload', upload.single('file'), (req, res, next) => {
-  console.log(req.file);
-  
-  pdfTableExtractor(req.file, tableParse.tableParseSuccess, tableParse.tableParseError);
+  console.log('***** ', req.file);
+  let fileName = req.file.filename;
+  pdfTableExtractor(`PDF/${fileName}`, tableParse.tableParseSuccess, tableParse.tableParseError);
   res.end(req.file);
 });
 
