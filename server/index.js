@@ -143,7 +143,7 @@ app.get('/allItems', function (req, res) {
 
 const port = process.env.PORT || 5000;
 app.listen(port, function() {
-  console.log(`Example app listening on ${port}`);
+  console.log(`Droppifffffy listening on ${port}`);
 });
 
 module.exports.extractor = pdf_table_extractor;
