@@ -24,7 +24,7 @@ class Input extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.cloudinaryUrl !== this.state.cloudinaryUrl && this.state.cloudinaryUrl !== '') {
-      this.sendUrl();
+        this.sendUrl();
     }
   }
 
