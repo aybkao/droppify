@@ -3,6 +3,7 @@ import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import Nav from './Nav.jsx';
 import axios from 'axios';
+// import max from 'pdf-table-extractor';
 // import config from '../../../config.js';
 
 const CLOUDINARY_UPLOAD_PRESET = 'dropiffy';
@@ -16,7 +17,6 @@ class Input extends React.Component {
       cloudinaryUrl: '',
       fileTitle: ''
     };
-
     this.onImageDrop = this.onImageDrop.bind(this);
     this.handleImageUpload = this.handleImageUpload.bind(this);
   }

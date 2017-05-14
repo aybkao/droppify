@@ -89,7 +89,7 @@ app.get('/items/:kw', function (req, res) {
     Object.keys(val).map( (key, index) =>  { arr.push(key) })
     // val is an Array
     // Loop is used to build an object with regex values.
-    for (var i = 0; i < arr.length; i++){
+    for (var i = 0; i < arr.length-1; i++){
       var key = arr[i];
       filterObj[arr[i]]={"$regex": req.params.kw, "$options":"i"}
     }
@@ -106,12 +106,11 @@ app.get('/items/:kw', function (req, res) {
     bigObj.$or = filterArr
     console.log('DOES IS REACH?', bigObj)
     // bigObj is the main algorithm used to find data in the table    
-    Items.find( bigObj ).limit(50).exec( function (err, data) {
+    Items.find( bigObj ).limit(100).exec( function (err, data) {
       if (err) {
         console.log( 'server get request failure', err)
       } else {
-        console.log('server get request Success!', data)
-        // console.log('filterObj',Array.isArray(filterObj))
+        console.log('server get request Success!')
       }
       res.end(JSON.stringify(data));
     })  
@@ -120,15 +119,16 @@ app.get('/items/:kw', function (req, res) {
 
 app.post('/data', function(req, res) {
 	// take req.body.filter to pull data from our database
+  // cloudinary.api.resources(function(result){console.log('RESULT',result)})
 	console.log('Fake Post Data')
-	res.send('yoiasf')
+  res.send('yoiasf')
 })
 
 
 app.get('/allItems', function (req, res) {
   // console.log(req.params.kw)
   // Items.find({"Course Location ": "San Jose " }).limit(30).exec( function (err, data) {
-  Items.find({}).limit(50).exec( function (err, data) {
+  Items.find({}).limit(100).exec( function (err, data) {
     if (err) {
       console.log( 'server get request failure', err)
     } else {
@@ -143,14 +143,7 @@ app.listen(port, function() {
   console.log(`Example app listening on ${port}`);
 });
 
-// From Test-Server.js
 
 
-// var pdf_table_extractor = require("pdf-table-extractor");
 
-
-//var port = process.env.PORT || 3000;
-// app.listen(port, function() {
-//   console.log(`Example app listening on ${port}`);
-// });
 

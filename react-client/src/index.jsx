@@ -35,7 +35,6 @@ class App extends React.Component {
     $.ajax({
       method: "GET",
       url: '/allItems',
-      // url: '/items',
       success: (data) => {
         data = JSON.parse(data);
         ogThis.setState({ items: data })
@@ -58,10 +57,9 @@ class App extends React.Component {
 
        $.ajax({
           method: "GET",
-          // url: 'http://localhost:'+port+'/items/'+ogThis.state.filter,
           url: 'items/'+ogThis.state.filter,
           success: (data) => {
-            console.log('Nested Ajax request Success!', data)
+            console.log('Nested Ajax request Success!')
             data = JSON.parse(data);
             ogThis.setState({ items: data })
           },
@@ -78,7 +76,6 @@ class App extends React.Component {
   }
 
   handleChange(e) {
-    console.log('change', e.target.value)
     this.setState({filter:e.target.value})
   }
 
