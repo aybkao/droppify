@@ -123,7 +123,6 @@ app.post('/url', (req, res) => {
 });
 
 app.post('/upload', upload.single('file'), (req, res, next) => {
-  console.log('***** ', req.file);
   let fileName = req.file.filename;
   pdfTableExtractor(`PDF/${fileName}`, tableParse.tableParseSuccess, tableParse.tableParseError);
   res.end(req.file);
@@ -146,3 +145,5 @@ const port = process.env.PORT || 5000;
 app.listen(port, function() {
   console.log(`Example app listening on ${port}`);
 });
+
+module.exports.extractor = pdf_table_extractor;
