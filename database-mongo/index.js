@@ -41,7 +41,7 @@ tableParseSuccess = (result) => {
   savePageTableToMongo(0, 1);
   
   // For all other pages we save all rows. After page 39 all rows are empty.
-  for (var k = 1; k < 39; k++) {
+  for (var k = 1; k < result.numPages; k++) {
     savePageTableToMongo(k, 0);
   }
 };
