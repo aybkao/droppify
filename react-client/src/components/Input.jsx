@@ -19,6 +19,7 @@ class Input extends React.Component {
     };
     this.onImageDrop = this.onImageDrop.bind(this);
     this.handleImageUpload = this.handleImageUpload.bind(this);
+    this.dropHandler = this.dropHandler.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -71,6 +72,19 @@ class Input extends React.Component {
       }
     });
   }
+  
+  dropHandler(file) {
+    console.log("file dropped!!")
+    var photo = new FormData();
+    console.log(file);
+    photo.append('photo', file[0]);
+    request.post('/upload')
+      .send(photo)
+      .end(function(err, resp) {
+        if (err) { console.error(err); }
+        return resp;
+    });
+  }
 
   render() {
     return (
@@ -96,6 +110,12 @@ class Input extends React.Component {
               </div>
             }
           </div>
+          
+          <h2> BELOW IS TEST DROPZONE TO SERVER </h2>
+          <Dropzone disableClick ={true} multiple={false} onDrop={this.dropHandler}>
+            <div> Drop a file here hopefully goes to server </div>
+          </Dropzone>
+
         </form>
       </div>
     )

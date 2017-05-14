@@ -6,6 +6,8 @@ const allSchemas = require('../database-mongo/dbPull.js');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const configAuth = require('./configAuth.js');
+const multer = require('multer');
+const upload = multer({ dest: './client/droppedFiles'});
 
 var User = allSchemas.user;
 var Items = allSchemas.items;
@@ -135,6 +137,10 @@ app.get('/allItems', function (req, res) {
     }
     res.end(JSON.stringify(data));
   })
+});
+
+app.post('/upload', upload.single('photo'), function(req, res, next) {
+  res.end(req.file);
 });
 
 const port = process.env.PORT || 5000;
