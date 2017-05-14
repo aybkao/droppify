@@ -24,7 +24,7 @@ class Input extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.cloudinaryUrl !== this.state.cloudinaryUrl && this.state.cloudinaryUrl !== '') {
-      this.sendData();
+      this.sendUrl();
     }
   }
 
@@ -51,7 +51,7 @@ class Input extends React.Component {
       .send(uploadedPdf)
       .end((err, resp) => {
         if (err) {
-          console.error(err);
+          console.log('error in onImageDrop Post to /upload: ', err);
         } else {
           return resp;
         }
