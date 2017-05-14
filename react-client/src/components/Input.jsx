@@ -3,6 +3,7 @@ import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import Nav from './Nav.jsx';
 import axios from 'axios';
+//import {Redirect} from 'react-router-dom';
 // import config from '../../../config.js';
 
 const CLOUDINARY_UPLOAD_PRESET = 'dropiffy';
@@ -14,7 +15,8 @@ class Input extends React.Component {
       this.state = {
       uploadedFile: null,
       cloudinaryUrl: '',
-      fileTitle: ''
+      fileTitle: '',
+      redirect: false //if this turns true then we have a response and we should redirect via a ternary operator in the render function
     };
 
     this.onImageDrop = this.onImageDrop.bind(this);
@@ -23,18 +25,20 @@ class Input extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.cloudinaryUrl !== this.state.cloudinaryUrl && this.state.cloudinaryUrl !== '') {
-      console.log('component did update')
-      this.sendUrl();
+      this.sendData();
     }
   }
 
-  sendUrl() {
+  sendData() {
     axios.post('/url', {
-    url: this.state.cloudinaryUrl,
-    title: this.state.fileTitle
+      url: this.state.cloudinaryUrl,
+      title: this.state.fileTitle,
+      file: this.state.uploadedFile
     })
-    .then(function (response) {
+    .then((response) => {
+      //redirect is true
       console.log(response);
+      console.log(this.state.uploadedFile);
     })
     .catch(function (error) {
       console.log(error);
@@ -46,12 +50,11 @@ class Input extends React.Component {
       uploadedFile: files[0]
     });
 
+    this.dropper();
     this.handleImageUpload(files[0]);
   }
 
   handleImageUpload(file) {
-    console.log(`this is the file: ${file}`);
-  
     let upload = request.post(CLOUDINARY_UPLOAD_URL)
       .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
       .field('file', file)
@@ -66,8 +69,6 @@ class Input extends React.Component {
           cloudinaryUrl: response.body.secure_url,
           fileTitle: response.body.original_filename
         });
-
-        console.log('this is the response body: ', response.body);
       }
     });
   }
@@ -78,6 +79,8 @@ class Input extends React.Component {
         <div>
           <Nav />
         </div>
+        <input type="file" id="pdf-file">
+        </input>
         <form>
           <div className="input">
             <Dropzone
