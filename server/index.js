@@ -55,6 +55,10 @@ app.post('/data', function(req, res) {
 	res.send('yoiasf')
 })
 
+app.post('/url', (req, res) => {
+  console.log('************** ', req.body);
+	res.send('received data');
+});
 
 app.get('/allItems', function (req, res) {
   // console.log(req.params.kw)
@@ -74,14 +78,5 @@ app.listen(port, function() {
   console.log(`Example app listening on ${port}`);
 });
 
-// From Test-Server.js
-
-
-// var pdf_table_extractor = require("pdf-table-extractor");
-
-
-//var port = process.env.PORT || 3000;
-// app.listen(port, function() {
-//   console.log(`Example app listening on ${port}`);
-// });
+module.exports.extractor = pdf_table_extractor;
 
