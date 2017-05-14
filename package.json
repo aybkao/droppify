@@ -9,7 +9,7 @@
     "start-dev": "nodemon ./server/index.js",
     "react-dev": "webpack -d --watch",
     "mongo-dev": "mongod --dbpath database-mongo/db",
-    "build": "webpack -p --progress --colors",
+    "build": "NODE_ENV=production webpack -p --progress --colors",
     "heroku-postbuild": "npm run build"
   },
   "repository": {
