@@ -19,7 +19,7 @@ class Input extends React.Component {
       redirect: false //if this turns true then we have a response and we should redirect via a ternary operator in the render function
     };
     this.onImageDrop = this.onImageDrop.bind(this);
-    this.handleImageUpload = this.handleImageUpload.bind(this);
+    this.uploadToCloudinary = this.uploadToCloudinary.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -28,11 +28,10 @@ class Input extends React.Component {
     }
   }
 
-  sendData() {
+  sendUrl() {
     axios.post('/url', {
       url: this.state.cloudinaryUrl,
       title: this.state.fileTitle,
-      file: this.state.uploadedFile
     })
     .then((response) => {
       //redirect is true
@@ -45,15 +44,27 @@ class Input extends React.Component {
   }
 
   onImageDrop(files) {
+    let uploadedPdf = new FormData();
+    uploadedPdf.append('file', files[0]);
+
+    request.post('/upload')
+      .send(uploadedPdf)
+      .end((err, resp) => {
+        if (err) {
+          console.error(err);
+        } else {
+          return resp;
+        }
+      });
+
     this.setState({
       uploadedFile: files[0]
     });
 
-    this.dropper();
-    this.handleImageUpload(files[0]);
+    this.uploadToCloudinary(files[0]);
   }
 
-  handleImageUpload(file) {
+  uploadToCloudinary(file) {
     let upload = request.post(CLOUDINARY_UPLOAD_URL)
       .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
       .field('file', file)
