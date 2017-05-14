@@ -39,7 +39,7 @@ class Input extends React.Component {
       console.log(response);
       console.log(this.state.uploadedFile);
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log(error);
     });
   }
