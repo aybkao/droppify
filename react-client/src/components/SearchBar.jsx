@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Nav from './components/Nav.jsx';
+import Nav from './Nav.jsx';
 
 const Search = ({handleChange, handleClick}) => (
 
