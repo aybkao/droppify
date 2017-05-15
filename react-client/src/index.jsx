@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import $ from 'jquery';
 import List from './components/List.jsx';
 import Nav from './components/Nav.jsx';
+import Search from './components/SearchBar.jsx';
 import Input from './components/Input.jsx';
 import ImportBar from './components/ImportBar.jsx';
 import TableView from './components/TableView.jsx';
