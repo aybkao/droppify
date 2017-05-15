@@ -20,7 +20,7 @@ const Nav = (props) => (
       iconClassNameRight='muidocs-icon-navigation-expand-more'
       
     >
-      <Tabs className='tabs'>
+      <Tabs className='tabs navTab'>
         <Tab label="Import pdfs" containerElement={<NavLink exact activeClassName='active' to='/'></NavLink>}/>
         <Tab label="Login" onClick={toLogin}/>
         <Tab label="Signup" onClick={toSignup}/>
