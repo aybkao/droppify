@@ -3,7 +3,7 @@ import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import Nav from './Nav.jsx';
 import axios from 'axios';
-//import {Redirect} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 // import config from '../../../config.js';
 
 const CLOUDINARY_UPLOAD_PRESET = 'dropiffy';
