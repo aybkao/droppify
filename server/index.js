@@ -127,7 +127,7 @@ app.post('/upload', upload.single('file'), (req, res, next) => {
   let filePath = `PDF/${fileName}`;
 
   pdfTableExtractor(filePath, tableParse.tableParseSuccess, tableParse.tableParseError);
-  res.end(json.stringify(req.file)); 
+  res.send('success'); 
 });
 
 app.get('/allItems', function (req, res) {
