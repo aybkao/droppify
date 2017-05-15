@@ -5,6 +5,7 @@ import Nav from './Nav.jsx';
 import axios from 'axios';
 import $ from 'jquery';
 import {Redirect} from 'react-router-dom';
+import ReactSpinner from 'react-spinjs';
 // import config from '../../../config.js';
 
 const CLOUDINARY_UPLOAD_PRESET = 'dropiffy';
@@ -17,7 +18,8 @@ class Input extends React.Component {
       uploadedFile: null,
       cloudinaryUrl: '',
       fileTitle: '',
-      redirect: false //if this turns true then we have a response and we should redirect via a ternary operator in the render function
+      redirect: false,
+      loading: false
     };
 
     this.onImageDrop = this.onImageDrop.bind(this);
@@ -57,8 +59,13 @@ class Input extends React.Component {
           console.log('error in onImageDrop Post to /upload: ', err);
         } else {
 
+        this.setState({
+          loading: true
+        });
+
         setTimeout(() => {
           this.setState({
+            loading: false,
             redirect: true
           });
         }, 2500)
@@ -109,34 +116,39 @@ class Input extends React.Component {
         <div>
           <Nav />
         </div>
-        <form>
-          <div className="dropzone">
-            <Dropzone
-              className="dropzone dz-clickable"
-              onDragEnter={this.dragEnter}
-              onDragLeave={this.dragLeave}
-              onDrop={this.onImageDrop}
-              multiple={false}
-              name='file'
-            >
-              <div className="dz-message"> Drop a pdf or click to select a file to upload. </div>
-            </Dropzone>
-          </div>
-          
+        {this.state.loading ? 
           <div>
-            {!this.state.redirect ? null : 
-              <Redirect to='/tableView'/>
-            }
-          </div>
+            <ReactSpinner />
+          </div> :
+          <form>
+            <div className="dropzone">
+              <Dropzone
+                className="dropzone dz-clickable"
+                onDragEnter={this.dragEnter}
+                onDragLeave={this.dragLeave}
+                onDrop={this.onImageDrop}
+                multiple={false}
+                name='file'
+              >
+                <div className="dz-message"> Drop a pdf or click to select a file to upload. </div>
+              </Dropzone>
+            </div>
+            
+            <div>
+              {!this.state.redirect ? null : 
+                <Redirect to='/tableView'/>
+              }
+            </div>
 
-          <div>
-            {this.state.cloudinaryUrl === '' ? null :
-              <div>
-                <p> Thank you, your file is being uploaded </p>
-              </div>
-            }
-          </div>
-        </form>
+            <div>
+              {this.state.cloudinaryUrl === '' ? null :
+                <div>
+                  <p> Thank you, your file is being uploaded </p>
+                </div>
+              }
+            </div>
+          </form>
+        }
       </div>
     )
   }
