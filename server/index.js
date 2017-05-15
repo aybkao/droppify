@@ -124,7 +124,9 @@ app.post('/url', (req, res) => {
 
 app.post('/upload', upload.single('file'), (req, res, next) => {
   let fileName = req.file.filename;
-  pdfTableExtractor(`PDF/${fileName}`, tableParse.tableParseSuccess, tableParse.tableParseError);
+  let filePath = `PDF/${fileName}`;
+  console.log('********* first argument 888888888: ', typeof filePath, filePath);
+  pdfTableExtractor(filePath, tableParse.tableParseSuccess, tableParse.tableParseError);
   res.end(req.file);
 });
 
