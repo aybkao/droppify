@@ -125,9 +125,9 @@ app.post('/url', (req, res) => {
 app.post('/upload', upload.single('file'), (req, res, next) => {
   let fileName = req.file.filename;
   let filePath = `PDF/${fileName}`;
-  console.log('********* first argument 888888888: ', typeof filePath, filePath);
+
   pdfTableExtractor(filePath, tableParse.tableParseSuccess, tableParse.tableParseError);
-  res.end(json.stringify(req.file)); 
+  res.send('success'); 
 });
 
 app.get('/allItems', function (req, res) {
@@ -145,7 +145,7 @@ app.get('/allItems', function (req, res) {
 
 const port = process.env.PORT || 5000;
 app.listen(port, function() {
-  console.log(`Droppifffffy listening on ${port}`);
+  console.log(`Example app listening on ${port}`);
 });
 
 module.exports.extractor = pdf_table_extractor;

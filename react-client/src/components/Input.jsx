@@ -34,7 +34,6 @@ class Input extends React.Component {
       title: this.state.fileTitle,
     })
     .then((response) => {
-      //redirect is true
       console.log(response);
       console.log(this.state.uploadedFile);
     })
@@ -53,6 +52,10 @@ class Input extends React.Component {
         if (err) {
           console.log('error in onImageDrop Post to /upload: ', err);
         } else {
+          this.setState({
+            redirect: true
+          });
+
           return resp;
         }
       });
@@ -98,6 +101,12 @@ class Input extends React.Component {
             >
               <div> Drop a pdf or click to select a file to upload. </div>
             </Dropzone>
+          </div>
+          
+          <div>
+            {!this.state.redirect ? null : 
+              <Redirect to='/tableView'/>
+            }
           </div>
 
           <div>
