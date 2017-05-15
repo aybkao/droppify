@@ -3,6 +3,7 @@ import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import Nav from './Nav.jsx';
 import axios from 'axios';
+import $ from 'jquery';
 import {Redirect} from 'react-router-dom';
 // import config from '../../../config.js';
 
@@ -18,8 +19,11 @@ class Input extends React.Component {
       fileTitle: '',
       redirect: false //if this turns true then we have a response and we should redirect via a ternary operator in the render function
     };
+
     this.onImageDrop = this.onImageDrop.bind(this);
     this.uploadToCloudinary = this.uploadToCloudinary.bind(this);
+    this.dragEnter = this.dragEnter.bind(this);
+    this.dragLeave = this.dragLeave.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -89,6 +93,16 @@ class Input extends React.Component {
     });
   }
 
+  dragEnter(e) {
+    e.preventDefault();
+    $(e.target).css('border-color','#AAD1F8');
+  }
+
+  dragLeave(e) {
+    e.preventDefault();
+    $(e.target).css('border-color','#000000');
+  }
+
   render() {
     return (
       <div>  
@@ -99,6 +113,8 @@ class Input extends React.Component {
           <div className="dropzone">
             <Dropzone
               className="dropzone dz-clickable"
+              onDragEnter={this.dragEnter}
+              onDragLeave={this.dragLeave}
               onDrop={this.onImageDrop}
               multiple={false}
               name='file'
