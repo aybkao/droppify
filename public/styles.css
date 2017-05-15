@@ -1,15 +1,20 @@
-#app {
-  background-color: #123456;
-}
+/*#app {
+  background-color: lightblue;
+}*/
 
 body .input {
-  margin: 0;
+  margin-top: 0;
   padding: 0;
   font-family: sans-serif;
 }
 
+
 .input {
   text-align: center;
+}
+
+.filter {
+  margin-top: 20px;
 }
 
 .nav {
@@ -23,6 +28,15 @@ body .input {
 .active {
   font-weight: bold;
 }
+
+.appBar {
+  flexWrap: 'wrap'
+}
+
+.tabs {
+  width: '100%'
+}
+
 /*
  * The MIT License
  * Copyright (c) 2012 Matias Meno <m@tias.me>
