@@ -1,4 +1,5 @@
 import React from 'react';
+// import AppBar from 'material-ui/AppBar';
 const Link = require('react-router-dom').Link;
 const NavLink = require('react-router-dom').NavLink;
 
@@ -27,3 +28,7 @@ const Nav = (props) => (
 )
 
 export default Nav;
+    // <AppBar
+    //   title='Droppiffy'
+    //   iconClassNameRight='muidocs-icon-navigation-expand-more'
+    // />
