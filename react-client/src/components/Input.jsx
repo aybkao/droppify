@@ -52,9 +52,12 @@ class Input extends React.Component {
         if (err) {
           console.log('error in onImageDrop Post to /upload: ', err);
         } else {
+
+        setTimeout(() => {
           this.setState({
             redirect: true
           });
+        }, 2500)
 
           return resp;
         }
@@ -93,13 +96,14 @@ class Input extends React.Component {
           <Nav />
         </div>
         <form>
-          <div className="input">
+          <div className="dropzone">
             <Dropzone
+              className="dropzone dz-clickable"
               onDrop={this.onImageDrop}
               multiple={false}
               name='file'
             >
-              <div> Drop a pdf or click to select a file to upload. </div>
+              <div className="dz-message"> Drop a pdf or click to select a file to upload. </div>
             </Dropzone>
           </div>
           
