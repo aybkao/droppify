@@ -95,12 +95,12 @@ class Input extends React.Component {
 
   dragEnter(e) {
     e.preventDefault();
-    $(e.target).css('border-color','#AAD1F8');
+    $(e.target).css({'border-color': '#4CAF50', 'background-color': '#AAD1F8'});
   }
 
   dragLeave(e) {
     e.preventDefault();
-    $(e.target).css('border-color','#000000');
+    $(e.target).css({'border-color': '#000000', 'background-color': '#ffffff'});
   }
 
   render() {
