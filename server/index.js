@@ -130,6 +130,10 @@ app.post('/upload', upload.single('file'), (req, res, next) => {
   res.send('success'); 
 });
 
+app.get('*', function(req, res) {
+  res.sendFile(path.resolve(__dirname + '/../client/index.html'));
+});
+
 app.get('/allItems', function (req, res) {
   // console.log(req.params.kw)
   // Items.find({"Course Location ": "San Jose " }).limit(30).exec( function (err, data) {
