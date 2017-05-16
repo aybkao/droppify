@@ -1,12 +1,14 @@
 ## Droppify
 Take a PDF table and turn it into an interactive searchable web app. 
 
-Team
+Team <br></br>
 Albert Kao, Jonathan Tom, Max Braz
+<br></br>
 
 <img height="500" src='./public/gif.gif' />
 
-npm pdf-table-extractor - https://www.npmjs.com/package/pdf-table-extractor
+<br></br>
+npm pdf-table-extractor - https://www.npmjs.com/package/pdf-table-extractor <br></br>
 material UI - http://www.material-ui.com/#/
 
 This app solves a problem that nurses and acupuncturists have when finding which
