@@ -10,7 +10,7 @@ droppify
 
 ## Table of Contents
 
-<img height="300" src='./public/gif.gif' />
+<img height="500" src='./public/gif.gif' />
 
 1. [Usage](#Usage)
 1. [Requirements](#requirements)
