@@ -10,7 +10,8 @@ droppify
 
 ## Table of Contents
 
-<iframe src='//gifs.com/embed/droppifygif-Q1zlXY' frameborder='0' scrolling='no' width='2500px' height='1260px' style='-webkit-backface-visibility: hidden;-webkit-transform: scale(1);' ></iframe>
+![alt text](https://gifs.com/gif/droppifygif-Q1zlXY)
+
 
 1. [Usage](#Usage)
 1. [Requirements](#requirements)
