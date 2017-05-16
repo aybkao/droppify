@@ -10,7 +10,7 @@ droppify
 
 ## Table of Contents
 
-<img height="700" src='//gifs.com/embed/droppifygif-Q1zlXY' />
+<img height="700" src='https://j.gifs.com/Q1zlXY.gif' />
 
 1. [Usage](#Usage)
 1. [Requirements](#requirements)
